@@ -76,7 +76,15 @@ const ButtonExample = () => {
               }
             }}
             visible={visible}
-          />
+            contentStyles={styles.fabContentStyles}
+          >
+            <FAB
+              icon="heart"
+              style={[styles.fab]}
+              onPress={() => {}}
+              visible={visible}
+            />
+          </FAB.Group>
         </Portal>
       </View>
     </View>
@@ -99,6 +107,24 @@ const styles = StyleSheet.create({
 
   fab: {
     margin: 8,
+  },
+
+  fabContentStyles: {
+    backgroundColor: Colors.purple900,
+    borderRadius: 10,
+    height: '25%',
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // margin: 100,
+    // position: 'absolute',
+    // top: 0,
+    // width: '80%',
+    // left: 0,
+    // right: 0,
+    // bottom: 0,
+    // width: 100,
+    // height: 100,
   },
 });
 

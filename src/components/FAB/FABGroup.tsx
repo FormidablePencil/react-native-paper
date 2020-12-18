@@ -82,6 +82,14 @@ type Props = {
    * Pass down testID from Group props to FAB.
    */
   testID?: string;
+  /**
+   * Add content between fabs and backdrop.
+   */
+  children?: any;
+  /**
+   * Add content between fabs and backdrop.
+   */
+  contentStyles?: StyleProp<ViewStyle>;
 };
 
 /**
@@ -156,6 +164,8 @@ const FABGroup = ({
   testID,
   onStateChange,
   color: colorProp,
+  children,
+  contentStyles,
 }: Props) => {
   const { current: backdrop } = React.useRef<Animated.Value>(
     new Animated.Value(0)
@@ -253,18 +263,23 @@ const FABGroup = ({
 
   return (
     <View pointerEvents="box-none" style={[styles.container, style]}>
-      <TouchableWithoutFeedback onPress={close}>
-        <Animated.View
-          pointerEvents={open ? 'auto' : 'none'}
-          style={[
-            styles.backdrop,
-            {
-              opacity: backdropOpacity,
-              backgroundColor: colors.backdrop,
-            },
-          ]}
-        />
-      </TouchableWithoutFeedback>
+      <View style={[styles.container, styles.alignContentCenter]}>
+        <TouchableWithoutFeedback onPress={close}>
+          <Animated.View
+            pointerEvents={open ? 'auto' : 'none'}
+            style={[
+              styles.backdrop,
+              {
+                opacity: backdropOpacity,
+                backgroundColor: colors.backdrop,
+              },
+            ]}
+          />
+        </TouchableWithoutFeedback>
+        <Animated.View style={[{ opacity: backdropOpacity }, contentStyles]}>
+          {children}
+        </Animated.View>
+      </View>
       <SafeAreaView pointerEvents="box-none" style={styles.safeArea}>
         <View pointerEvents={open ? 'box-none' : 'none'}>
           {actions.map((it, i) => (
@@ -392,5 +407,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
+  },
+  alignContentCenter: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
