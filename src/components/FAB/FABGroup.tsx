@@ -276,7 +276,9 @@ const FABGroup = ({
             ]}
           />
         </TouchableWithoutFeedback>
-        <Animated.View style={[{ opacity: backdropOpacity }, contentStyles]}>
+        <Animated.View
+          pointerEvents={open ? 'auto' : 'none'}
+          style={[{ opacity: backdropOpacity }, contentStyles]}>
           {children}
         </Animated.View>
       </View>
